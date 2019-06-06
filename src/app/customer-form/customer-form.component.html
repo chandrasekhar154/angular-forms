@@ -1,0 +1,122 @@
+{{diagnostic}}
+<div class="container" [hidden]="submitted">
+  <h3>Add Customer</h3>
+  <form #customerForm="ngForm" name="form" (ngSubmit)="customerForm.form.valid && custFormSubmit()" novalidate>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label for="customerType">Customer Type * </label>
+        <select class="form-control" name="customerType" placeholder="Type" [(ngModel)]="model.customerType" #customerType="ngModel" required>
+          <option *ngFor="let customer of customerTypeList" [value]="customer.customerKey"> {{customer.customerTitle}} </option>
+        </select>
+        <div *ngIf="customerType.invalid && (customerType.dirty || customerType.touched)" class="alert alert-danger">
+          Customer Type is required..
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label> First Name *</label>
+        <input type="text" class="form-control" name="customerFirstName" placeholder="First Name" [(ngModel)]="model.customerFirstName" minlength="3" maxlength="20" #customerFirstName="ngModel" required/>
+        <!-- <div [hidden]="customerFirstName.valid || customerFirstName.pristine" class="alert alert-danger">
+          First Name required..
+        </div> -->
+        <div *ngIf="customerFirstName.invalid && (customerFirstName.dirty || customerFirstName.touched)">
+          <div *ngIf="customerFirstName.errors.required" class="alert alert-danger">
+            First Name required..
+          </div>
+          <div *ngIf="customerFirstName.errors.minlength" class="alert alert-danger">
+            Check Min length
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Middle Name </label>
+        <input type="text" class="form-control" name="customerMiddleName" placeholder="Middle Name" [(ngModel)]="model.customerMiddleName"/>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Last Name *</label>
+        <input type="text" class="form-control" name="customerLastName" placeholder="Last Name" [(ngModel)]="model.customerLastName" #customerLastName="ngModel" minlength="2" maxlength="20" required/>
+        <!-- <div [hidden]="customerLastName.valid || customerLastName.pristine" class="alert alert-danger">
+          Last Name required..
+        </div> -->
+        <div *ngIf="customerLastName.invalid && (customerLastName.dirty || customerLastName.touched)">
+          <div *ngIf="customerLastName.errors.required" class="alert alert-danger">
+            Last Name required..
+          </div>
+          <div *ngIf="customerLastName.errors.minlength" class="alert alert-danger">
+            Check Min Length..
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label> Gender *</label> <br />
+        <input name="customerGender" type="radio" [value]="1"  [(ngModel)]="model.customerGender" > Female<br/>
+        <input name="customerGender" type="radio" [value]="2" [(ngModel)]="model.customerGender" >Male <br/>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Phone Number *</label>
+        <input type="text" class="form-control" name="customerMobileNo" placeholder="999-888-7766" [(ngModel)]="model.customerMobileNo" #customerMobileNo="ngModel" minlength ="10" maxlength ="10" required />
+        <div *ngIf="customerMobileNo.invalid && (customerMobileNo.dirty || customerMobileNo.touched)">
+          <div *ngIf="customerMobileNo.errors.required" class="alert alert-danger">
+            Mobile Number is required..
+          </div>
+          <div *ngIf="customerMobileNo.errors.minlength" class="alert alert-danger">
+            Check Min Length..
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Email *</label>
+        <input type="email" class="form-control" placeholder="sample@domain.com" name="customerEmail" [(ngModel)]="model.customerEmail" #customerEmail="ngModel" required/>
+        <div *ngIf="customerEmail.invalid && ( customerEmail.dirty || customerEmail.touched)">
+          <div *ngIf="customerEmail.errors.required" class="alert alert-danger">
+            Email is required..
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Occupation *</label>
+        <select class="form-control" name="customerOccupation" placeholder="Business" [(ngModel)]="model.customerOccupation" #customerOccupation="ngModel" required>
+          <option *ngFor="let occ of occupationList" [value]="occ.occupationKey">{{ occ.occupationTitle }}</option>
+        </select>
+        <div *ngIf="customerOccupation.invalid && ( customerOccupation.dirty || customerOccupation.touched)">
+          <div *ngIf="customerOccupation.errors.required" class="alert alert-danger">
+            Occupation is required..
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label>DOB *</label>
+        <input type="date" class="form-control" name="customerDOB" placeholder="10-10-1994" [(ngModel)]="model.customerDOB" #customerDOB="ngModel" required/>
+        <div *ngIf="customerDOB.invalid && (customerDOB.dirty || customerDOB.touched)">
+          <div *ngIf="customerDOB.errors.required" class="alert alert-danger">
+            DOB is required..
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Present Address *</label>
+        <textarea name="customerPresentAddress" class="form-control" rows="2" placeholder="Address.." [(ngModel)]="model.customerPresentAddress" #customerPresentAddress="ngModel" required></textarea>
+        <!-- <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea> -->
+        <div *ngIf="customerPresentAddress.invalid && (customerPresentAddress.dirty || customerPresentAddress.touched)">
+          <div *ngIf="customerPresentAddress.errors.required" class="alert alert-danger">
+            Present Address is required..
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Permanent Address *</label>
+        <textarea name="customerPermanentAddress" class="form-control" rows="2" placeholder="Address.." [(ngModel)]="model.customerPermanentAddress" #customerPermanentAddress="ngModel" required></textarea>
+        <div *ngIf="customerPermanentAddress.invalid && ( customerPermanentAddress.dirty || customerPermanentAddress.touched)">
+          <div *ngIf="customerPermanentAddress.errors.required" class="alert alert-danger">
+            Peramnent Address is required..
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success" [disabled]="customerForm.invalid">Submit</button> &nbsp;&nbsp;
+    <button type="button" class="btn btn-default" (click) = "customerForm.reset();">Reset</button>
+  </form>
+</div>
